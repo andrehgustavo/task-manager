@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Listagem de Tarefas</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap-theme.css" />
+        <h:outputStylesheet library="bootstrap" name="css/estilo_projeto.css" />
+        <link rel="shortcut icon" href="resources/imagens/to_do.ico"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="cabecalho">
+                <h1>Listagem de Tarefas</h1>
+            </div>
+            <f:view>
+                <h:form class="filterForm">
+                    <table>
+			<tr>
+				<td class="hed" colspan="2">Filtragem</td>
+			</tr>
+			<tr>
+				<td>Número</td>
+				<td colspan="3"><h:inputText value="#{taskBean.filterTask.number}"></h:inputText></td>
+			</tr>
+                        <tr>
+				<td>Título/Descrição</td>
+				<td colspan="3"><h:inputText value="#{taskBean.filterTask.title}" style="width:100%"></h:inputText></td>
+			</tr>
+			<tr>
+				<td>Responsável:</td> 
+				<td><h:selectOneMenu value="#{taskBean.filterTask.ownerId}">
+					<f:selectItem itemValue="#{null}" itemLabel="-- Escolha um --" />
+	   				<f:selectItems value="#{taskBean.owners}" var="owner"
+		   			itemLabel="#{owner.name}" itemValue="#{owner.id}" />
+		   			</h:selectOneMenu></td>
+		   		<td>Situacao</td> 
+				<td>
+					<h:selectOneMenu value="#{taskBean.filterTask.status}" >
+						<f:selectItem itemValue="#{null}" itemLabel="-- Escolha uma --" />
+		   				<f:selectItems value="#{taskBean.statues}" var="st" 
+			   			itemLabel="#{st.label}" itemValue="#{st}"/>
+					</h:selectOneMenu>
+				</td>				
+	   		</tr>
+	   	
+                        <div class="row">
+                        
+                        <h:commandLink class="btn btn-success controlesForm" action="#{taskBean.doFilter()}">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Filtrar
+                        </h:commandLink>                      
+                        </div>  
+   		</table>
+                </h:form>
+                <h:form class="controlesForm">    
+                    <h:dataTable id="taskList" class="table table-striped table-bordered" value="#{taskBean.tasks}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Título"/>
+                            </f:facet>
+                            <h:outputText value="#{item.title}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Responsável"/>
+                            </f:facet>
+                            <h:outputText value="#{item.owner.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ações"/>
+                            </f:facet>
+                            <h:commandLink action="#{taskBean.update(item)}" title="Editar">
+                                <img src="../resources/imagens/iconfinder_edit.png" width="20px"/>
+                            </h:commandLink>
+                            <h:commandLink type="reset" action="#{taskBean.delete(item)}" title="Excluir" onclick="return window.confirm('Tem certeza que deseja excluir essa tarefa?')">
+                                <img src="../resources/imagens/iconfinder_delete.png" width="20px"/>                     
+                            </h:commandLink>
+                            <h:commandLink type="reset" action="#{taskBean.closeTask(item)}" title="Concluir" onclick="return window.confirm('Tem certeza que deseja concluir essa tarefa?')">>
+                                <img src="../resources/imagens/iconfinder_finish.png" width="20px"/>                     
+                            </h:commandLink>
+                            
+                        </h:column>
+                    </h:dataTable>
+                    <div class="row">
+                        <h:link class="btn btn-success controlesForm" outcome="/index.xhtml">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                        </h:link>
+                        <h:commandLink class="btn btn-success controlesForm" action="#{taskBean.newTask('')}">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Cadastrar
+                        </h:commandLink>                      
+                    </div>
+                </h:form>
+            </f:view>
+        </div>
+    </h:body>
+</html>
+

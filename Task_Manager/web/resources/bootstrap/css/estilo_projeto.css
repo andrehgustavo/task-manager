@@ -1,0 +1,92 @@
+@import 'https://fonts.googleapis.com/css?family=Cinzel';
+
+.estilo_corpo {
+    width: 100%;
+    font-family: 'BlinkMacSystenFont', Roboto, Arial, serif;
+    font-size: 15px;
+    background-color: #28a745;
+}
+
+hr {
+    clear: both;
+    border-color: #17a2b8;
+    line-height:2px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+thead {
+    background-color: #20c907;
+}
+
+tbody tr:nth-child(odd){
+   background-color: #E9E9E9;
+}
+#ajuste_tabelas {
+    width: 90%;
+    margin-left: 5%;
+}
+
+#container {
+   width: 90%;
+   margin: 0 auto;
+}
+
+#label_portal{
+   font-family: 'BlinkMacSystenFont', Roboto, Arial, serif;
+   font-size: 1.2em;
+}
+.cabecalho {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    background-color: #343;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.cabecalho img {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 130px;
+}
+
+.cabecalho h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3em;
+    color: #20c907;
+    position: relative;
+    margin-top: 3%;
+}
+.cabecalho h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    color: #20c907;
+    position: relative;
+    margin-top: 20px;
+}
+.centralizar {
+    text-align: center;
+}
+.nav > li > a {
+    text-align: left;
+}
+
+.margem_corpo{
+    margin-top: 10px;
+}
+
+.margem_menu{
+    margin-top: 25px;
+}
+.controlesForm{
+    margin: 5px;
+}
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  

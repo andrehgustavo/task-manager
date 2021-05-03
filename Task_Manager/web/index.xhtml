@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Gerenciamento de Tarefas</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap-theme.css" />
+        <h:outputStylesheet library="bootstrap" name="css/estilo_projeto.css" />
+        <link rel="shortcut icon" href="resources/imagens/to_do.ico"/>
+    </h:head>
+    <body>
+        <div id="container">
+            <div class="cabecalho">
+                <h1>Listagem de tarefas</h1>
+            </div>
+            <div>
+                <h:form>
+                    <ul class="nav nav-pills nav-stacked col-md-3 esquerda">
+                        <li class="alert alert-success h4">
+                            <span class="glyphicon glyphicon glyphicon-inbox"/> Cadastros
+                        </li>
+                        <li>
+                            <h:commandLink action="#{taskBean.newTask('/task/')}" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-pencil"></span> Cadastrar Tarefa
+                            </h:commandLink>
+                        </li>
+                        <li class="alert alert-success h4">
+                            <span class="glyphicon glyphicon-th-list"/> Listas
+                        </li>                        
+                        <li>
+                            <h:commandLink action="/task/taskList" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> Listar Tarefas
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                </h:form>
+            </div>
+        </div>
+    </body>
+
+</html>
+
