@@ -13,7 +13,7 @@ import model.Status;
  */
 public class FilterTask {
     
-    private Long number;
+    private int number;
     private String title;
     private Long ownerId;
     Status status;
@@ -24,11 +24,11 @@ public class FilterTask {
     
     //getters and setters
 
-    public Long getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(Long number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

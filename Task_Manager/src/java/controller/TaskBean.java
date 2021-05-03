@@ -5,9 +5,11 @@
  */
 package controller;
 
-import controller.util.FilterTask;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,17 +26,20 @@ import model.Status;
  */
 @ManagedBean
 @SessionScoped
-public class TaskBean implements Serializable{
+public class TaskBean implements Serializable {
 
     private Task task = new Task();
-    
+
     private List<Task> tasks;
     private List<Owner> owners;
     private int ownerId;
-    private FilterTask filterTask;
-    
+    private Long filterNumber;
+    private String filterTitleDesc;
+    private int filterOwnerId;
+    private Status filterStatus;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         EntityManager em = JPAUtil.getEntityManager();
         if (this.owners == null) {
             Query o = em.createQuery("select o from Owner o", Owner.class);
@@ -42,7 +47,6 @@ public class TaskBean implements Serializable{
             em.close();
         }
     }
-
 
     /**
      * Creates a TaskBean new instance
@@ -59,8 +63,8 @@ public class TaskBean implements Serializable{
     public void setTask(Task task) {
         this.task = task;
     }
-    
-        public List<Owner> getOwners() {
+
+    public List<Owner> getOwners() {
         return owners;
     }
 
@@ -76,26 +80,47 @@ public class TaskBean implements Serializable{
         this.ownerId = ownerId;
     }
 
-    public FilterTask getFilterTask() {
-        return filterTask;
+    public Long getFilterNumber() {
+        return filterNumber;
     }
 
-    public void setFilter(FilterTask filterTask) {
-        this.filterTask = filterTask;
+    public void setFilterNumber(Long filterNumber) {
+        this.filterNumber = filterNumber;
     }
-    
-    
-    
+
+    public String getFilterTitleDesc() {
+        return filterTitleDesc;
+    }
+
+    public void setFilterTitleDesc(String filterTitleDesc) {
+        this.filterTitleDesc = filterTitleDesc;
+    }
+
+    public int getFilterOwnerId() {
+        return filterOwnerId;
+    }
+
+    public void setFilterOwnerId(int filterOwnerId) {
+        this.filterOwnerId = filterOwnerId;
+    }
+
+    public Status getFilterStatus() {
+        return filterStatus;
+    }
+
+    public void setFilterStatus(Status filterStatus) {
+        this.filterStatus = filterStatus;
+    }
 
     //methods
-    public Priority[] getPriorities(){
+    public Priority[] getPriorities() {
         return Priority.values();
     }
-    
-    public Status[] getStatues(){
+
+    public Status[] getStatues() {
         return Status.values();
     }
-    
+
     public String newTask(String info) {
         task = new Task();
         return info + "taskForm";
@@ -131,7 +156,7 @@ public class TaskBean implements Serializable{
         this.ownerId = Math.toIntExact(t.getOwner().getId());
         return "taskForm";
     }
-    
+
     public void closeTask(Task task) {
         EntityManager em = JPAUtil.getEntityManager();
         if (task.getId() != null) {
@@ -170,17 +195,35 @@ public class TaskBean implements Serializable{
         this.tasks = null;
 
     }
-    
-    public void doFilter(){
-        //TO DO
-//        EntityManager em = JPAUtil.getEntityManager();
-//        Query t = em.createQuery("select t from Task t",
-//                    Task.class);
-//            this.tasks = t.getResultList();
-//            
-//            this.tasks = this.tasks.stream().filter(t -> t.getId() == filter.getNumber() &&
-//                            t.getTitle()==);
-//            em.close();
+
+    public void doFilter() {
+        EntityManager em = JPAUtil.getEntityManager();
+        Query theTask = em.createQuery("select t from Task t", Task.class);
+        this.tasks = theTask.getResultList();
+        List<Predicate<Task>> allPredicates = new ArrayList<>();
+        if (this.getFilterNumber() != null) {
+            allPredicates.add(t -> (t.getId()).longValue() == (this.getFilterNumber()).longValue());
+        }
+        if (this.getFilterTitleDesc() != null) {
+            allPredicates.add(t -> t.getTitle().toLowerCase().contains(this.getFilterTitleDesc().toLowerCase()) || t.getDescription().toLowerCase().contains(this.getFilterTitleDesc().toLowerCase()));
+        }
+        if (this.getFilterOwnerId() != 0L) {
+            allPredicates.add(t -> t.getOwner().getId() == this.getFilterOwnerId());
+        }
+        if (this.getFilterStatus() != null) {
+            allPredicates.add(t -> t.getStatus() == this.getFilterStatus());
+        }
+        if (allPredicates.size() > 0) {
+            this.tasks = this.tasks.stream().filter(allPredicates.stream().reduce(x -> true, Predicate::and)).collect(Collectors.toList());
+        }
+        em.close();
+    }
+
+    public void clearFilter() {
+        EntityManager em = JPAUtil.getEntityManager();
+        Query theTask = em.createQuery("select t from Task t", Task.class);
+        this.tasks = theTask.getResultList();
+        em.close();
     }
 
 }

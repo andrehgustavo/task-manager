@@ -24,23 +24,27 @@
 				<td class="hed" colspan="2">Filtragem</td>
 			</tr>
 			<tr>
-				<td>Número</td>
-				<td colspan="3"><h:inputText value="#{taskBean.filterTask.number}"></h:inputText></td>
-			</tr>
+				<td>Número</td>			           
+                            </tr>
+                        <tr>	<td colspan="3">
+                                    <h:inputText value="#{taskBean.filterNumber}"></h:inputText>
+                                </td>
+                                        <f:passThroughAttribute name="type" value="number"/>
+                            </tr>
                         <tr>
 				<td>Título/Descrição</td>
-				<td colspan="3"><h:inputText value="#{taskBean.filterTask.title}" style="width:100%"></h:inputText></td>
+				<td colspan="3"><h:inputText value="#{taskBean.filterTitleDesc}" style="width:100%"></h:inputText></td>
 			</tr>
 			<tr>
 				<td>Responsável:</td> 
-				<td><h:selectOneMenu value="#{taskBean.filterTask.ownerId}">
+				<td><h:selectOneMenu value="#{taskBean.filterOwnerId}">
 					<f:selectItem itemValue="#{null}" itemLabel="-- Escolha um --" />
 	   				<f:selectItems value="#{taskBean.owners}" var="owner"
 		   			itemLabel="#{owner.name}" itemValue="#{owner.id}" />
 		   			</h:selectOneMenu></td>
 		   		<td>Situacao</td> 
 				<td>
-					<h:selectOneMenu value="#{taskBean.filterTask.status}" >
+					<h:selectOneMenu value="#{taskBean.filterStatus}" >
 						<f:selectItem itemValue="#{null}" itemLabel="-- Escolha uma --" />
 		   				<f:selectItems value="#{taskBean.statues}" var="st" 
 			   			itemLabel="#{st.label}" itemValue="#{st}"/>
@@ -52,7 +56,10 @@
                         
                         <h:commandLink class="btn btn-success controlesForm" action="#{taskBean.doFilter()}">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Filtrar
-                        </h:commandLink>                      
+                        </h:commandLink> 
+                        <h:commandLink class="btn btn-danger controlesForm" action="#{taskBean.clearFilter()}">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Limpar Filtro
+                        </h:commandLink> 
                         </div>  
    		</table>
                 </h:form>
