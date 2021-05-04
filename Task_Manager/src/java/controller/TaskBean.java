@@ -7,6 +7,7 @@ package controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -174,7 +175,7 @@ public class TaskBean implements Serializable {
     public List<Task> getTasks() {
         EntityManager em = JPAUtil.getEntityManager();
         if (this.tasks == null) {
-            Query t = em.createQuery("select t from Task t",
+            Query t = em.createQuery("select t from Task t order by id",
                     Task.class);
             this.tasks = t.getResultList();
             em.close();
@@ -198,7 +199,7 @@ public class TaskBean implements Serializable {
 
     public void doFilter() {
         EntityManager em = JPAUtil.getEntityManager();
-        Query theTask = em.createQuery("select t from Task t", Task.class);
+        Query theTask = em.createQuery("select t from Task t order by id", Task.class);
         this.tasks = theTask.getResultList();
         List<Predicate<Task>> allPredicates = new ArrayList<>();
         if (this.getFilterNumber() != null) {
@@ -215,14 +216,15 @@ public class TaskBean implements Serializable {
         }
         //FILTER
         if (allPredicates.size() > 0) {
-            this.tasks = this.tasks.stream().filter(allPredicates.stream().reduce(x -> true, Predicate::and)).collect(Collectors.toList());
+            this.tasks = this.tasks.stream().filter(allPredicates.stream().reduce(x -> true, Predicate::and))
+                    .collect(Collectors.toList());
         }
         em.close();
     }
 
     public void clearFilter() {
         EntityManager em = JPAUtil.getEntityManager();
-        Query theTask = em.createQuery("select t from Task t", Task.class);
+        Query theTask = em.createQuery("select t from Task t order by id", Task.class);
         this.tasks = theTask.getResultList();
         filterNumber = null;
         filterTitleDesc = null;
