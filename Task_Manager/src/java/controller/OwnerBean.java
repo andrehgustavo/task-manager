@@ -22,29 +22,19 @@ import model.Owner;
 @SessionScoped
 public class OwnerBean {
 
-    private Owner owner= new Owner();
+    private Owner owner = new Owner();
     private List<Owner> owners;
     private List<Occupation> occupations;
     private int occupationId;
 
-    
-    @PostConstruct
-    public void init() {
-        EntityManager em = JPAUtil.getEntityManager();
-        if (this.occupations == null) {
-            Query o = em.createQuery("select o from Occupation o", Occupation.class);
-            this.occupations = o.getResultList();
-            em.close();
-        }
-    }
-    
+
     /**
      * Creates a OwnerBean new instance
      */
     public OwnerBean() {
         owner.setId(null);
     }
-    
+
     public Owner getOwner() {
         return owner;
     }
@@ -60,8 +50,7 @@ public class OwnerBean {
     public void setOccupations(List<Occupation> occupations) {
         this.occupations = occupations;
     }
-    
-    
+
     public int getOccupationId() {
         return occupationId;
     }
@@ -69,14 +58,15 @@ public class OwnerBean {
     public void setOccupationId(int occupationId) {
         this.occupationId = occupationId;
     }
-    
+
     //Methods
-    
     public String newOwner(String info) {
         owner = new Owner();
+        updateOwnerList();
+        this.occupationId = 0;
         return info + "ownerForm";
     }
-    
+
     public String save() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -107,7 +97,6 @@ public class OwnerBean {
         return "ownerForm";
     }
 
-
     public List<Owner> getOwners() {
         EntityManager em = JPAUtil.getEntityManager();
         if (this.owners == null) {
@@ -132,8 +121,12 @@ public class OwnerBean {
         this.owners = null;
 
     }
-    
-    
-    
-    
+
+    public void updateOwnerList() {
+        EntityManager em = JPAUtil.getEntityManager();
+        Query o = em.createQuery("select o from Occupation o", Occupation.class);
+        this.occupations = o.getResultList();
+        em.close();
+    }
+
 }

@@ -32,6 +32,11 @@
                                 <span class="glyphicon glyphicon-pencil"></span> Cadastrar Proprietário
                             </h:commandLink>
                         </li>
+                        <li>
+                            <h:commandLink action="#{occupationBean.newOccupation('/occupation/')}" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-pencil"></span> Cadastrar Cargo
+                            </h:commandLink>
+                        </li>
                         <li class="alert alert-success h4">
                             <span class="glyphicon glyphicon-th-list"/> Listas
                         </li>                        
@@ -43,6 +48,11 @@
                         <li>
                             <h:commandLink action="/owner/ownerList" class="btn btn-link btn-lg">
                                 <span class="glyphicon glyphicon-user"></span> Listar Proprietários
+                            </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink action="/occupation/occupationList" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-user"></span> Listar Cargos
                             </h:commandLink>
                         </li>
                     </ul>
