@@ -8,7 +8,6 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,6 @@ import javax.persistence.Temporal;
  * @author andre
  */
 @Entity
-@ViewScoped
 public class Task implements Serializable{
     
     @Id

@@ -7,7 +7,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,6 @@ import javax.persistence.ManyToOne;
  * @author andre
  */
 @Entity
-@ViewScoped
 public class Owner implements Serializable {
     
     @Id

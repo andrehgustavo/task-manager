@@ -6,7 +6,6 @@
 package model;
 
 import java.util.Objects;
-import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +16,6 @@ import javax.persistence.Id;
  * @author andre
  */
 @Entity
-@ViewScoped
 public class Occupation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
