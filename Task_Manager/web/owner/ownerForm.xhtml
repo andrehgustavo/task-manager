@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Cadastrar Proprietário</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap-theme.css" />
+        <h:outputStylesheet library="bootstrap" name="css/estilo_projeto.css" />
+        <link rel="shortcut icon" href="resources/imagens/to_do.ico"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="cabecalho">
+                <h1>Cadastrar Proprietários</h1>
+            </div>
+
+            <h:form id="formulario">
+                <fieldset class="alert alert-success controlesForm">
+                    <div class="form-group row">
+                        <h:outputLabel class="col-xs-2">Nome: </h:outputLabel>
+                        <div class="col-xs-8">
+                            <h:inputText id="nome" class="form-control" value="#{ownerBean.owner.name}" required="true" requiredMessage="Preenchimento do campo &ldquo;Nome&rdquo; é obrigatório!!"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel class="col-xs-2">E-mail: </h:outputLabel>
+                        <div class="col-xs-8">
+                            <h:inputText id="email" class="form-control" value="#{ownerBean.owner.email}" required="true" requiredMessage="Preenchimento do campo &ldquo;e-mail&rdquo; é obrigatório!!"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel class="col-xs-2">Telefone: </h:outputLabel>
+                        <div class="col-xs-8">
+                            <h:inputText id="phone" class="form-control" value="#{ownerBean.owner.phone}" required="true" requiredMessage="Preenchimento do campo &ldquo;telefone&rdquo; é obrigatório!!"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <h:outputLabel class="col-xs-3">Cargo</h:outputLabel>
+                        <div class="col-xs-3">
+                            <h:selectOneMenu value="#{ownerBean.occupationId}">
+                                <f:selectItem itemValue="#{null}" itemLabel="-- Escolha um --" />
+                                <f:selectItems value="#{ownerBean.occupations}" var="ocup"
+                                               itemLabel="#{ocup.name}" itemValue="#{ocup.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row controlesForm">
+                    <h:link class="btn btn-success" outcome="/index.xhtml">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                    </h:link>
+                    <h:commandLink class="btn btn-success" action="#{ownerBean.save}" >
+                        <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Cadastrar
+                    </h:commandLink>
+
+                    <h:messages class="alert alert-warning"/>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

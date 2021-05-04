@@ -27,12 +27,22 @@
                                 <span class="glyphicon glyphicon-pencil"></span> Cadastrar Tarefa
                             </h:commandLink>
                         </li>
+                        <li>
+                            <h:commandLink action="#{ownerBean.newOwner('/owner/')}" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-pencil"></span> Cadastrar Proprietário
+                            </h:commandLink>
+                        </li>
                         <li class="alert alert-success h4">
                             <span class="glyphicon glyphicon-th-list"/> Listas
                         </li>                        
                         <li>
                             <h:commandLink action="/task/taskList" class="btn btn-link btn-lg">
                                 <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> Listar Tarefas
+                            </h:commandLink>
+                        </li>
+                        <li>
+                            <h:commandLink action="/owner/ownerList" class="btn btn-link btn-lg">
+                                <span class="glyphicon glyphicon-user"></span> Listar Proprietários
                             </h:commandLink>
                         </li>
                     </ul>

@@ -39,16 +39,6 @@ public class TaskBean implements Serializable {
     private int filterOwnerId;
     private Status filterStatus;
 
-    @PostConstruct
-    public void init() {
-        EntityManager em = JPAUtil.getEntityManager();
-        if (this.owners == null) {
-            Query o = em.createQuery("select o from Owner o", Owner.class);
-            this.owners = o.getResultList();
-            em.close();
-        }
-    }
-
     /**
      * Creates a TaskBean new instance
      */
@@ -124,6 +114,7 @@ public class TaskBean implements Serializable {
 
     public String newTask(String info) {
         task = new Task();
+        updateOwnerList();
         return info + "taskForm";
     }
 
@@ -230,6 +221,13 @@ public class TaskBean implements Serializable {
         filterTitleDesc = null;
         filterOwnerId = 0;
         filterStatus = null;
+        em.close();
+    }
+
+    public void updateOwnerList() {
+        EntityManager em = JPAUtil.getEntityManager();
+        Query o = em.createQuery("select o from Owner o", Owner.class);
+        this.owners = o.getResultList();
         em.close();
     }
 
