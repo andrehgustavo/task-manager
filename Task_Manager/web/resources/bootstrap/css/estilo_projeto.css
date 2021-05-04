@@ -90,3 +90,11 @@ tbody tr:nth-child(odd){
       margin: auto;
   }
   
+  .acao{
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+  }
+  

@@ -85,6 +85,13 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status.label}"/>
+                        </h:column>
+                        <h:column>
+                            <div class="acao">
+                            <f:facet name="header">
                                 <h:outputText value="Ações"/>
                             </f:facet>
                             <h:commandLink action="#{taskBean.update(item)}" title="Editar">
@@ -93,10 +100,10 @@
                             <h:commandLink type="reset" action="#{taskBean.delete(item)}" title="Excluir" onclick="return window.confirm('Tem certeza que deseja excluir essa tarefa?')">
                                 <img src="../resources/imagens/iconfinder_delete.png" width="20px"/>                     
                             </h:commandLink>
-                            <h:commandLink type="reset" action="#{taskBean.closeTask(item)}" title="Concluir" onclick="return window.confirm('Tem certeza que deseja concluir essa tarefa?')">>
+                            <h:commandLink type="reset" action="#{taskBean.closeTask(item)}" title="Concluir" onclick="return window.confirm('Tem certeza que deseja concluir essa tarefa?')">
                                 <img src="../resources/imagens/iconfinder_finish.png" width="20px"/>                     
                             </h:commandLink>
-                            
+                            </div>
                         </h:column>
                     </h:dataTable>
                     <div class="row">

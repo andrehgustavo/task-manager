@@ -202,7 +202,7 @@ public class TaskBean implements Serializable {
         this.tasks = theTask.getResultList();
         List<Predicate<Task>> allPredicates = new ArrayList<>();
         if (this.getFilterNumber() != null) {
-            allPredicates.add(t -> (t.getId()).longValue() == (this.getFilterNumber()).longValue());
+            allPredicates.add(t -> (t.getId()) == (this.getFilterNumber()).longValue());
         }
         if (this.getFilterTitleDesc() != null) {
             allPredicates.add(t -> t.getTitle().toLowerCase().contains(this.getFilterTitleDesc().toLowerCase()) || t.getDescription().toLowerCase().contains(this.getFilterTitleDesc().toLowerCase()));
@@ -213,6 +213,7 @@ public class TaskBean implements Serializable {
         if (this.getFilterStatus() != null) {
             allPredicates.add(t -> t.getStatus() == this.getFilterStatus());
         }
+        //FILTER
         if (allPredicates.size() > 0) {
             this.tasks = this.tasks.stream().filter(allPredicates.stream().reduce(x -> true, Predicate::and)).collect(Collectors.toList());
         }
@@ -223,6 +224,10 @@ public class TaskBean implements Serializable {
         EntityManager em = JPAUtil.getEntityManager();
         Query theTask = em.createQuery("select t from Task t", Task.class);
         this.tasks = theTask.getResultList();
+        filterNumber = null;
+        filterTitleDesc = null;
+        filterOwnerId = 0;
+        filterStatus = null;
         em.close();
     }
 
