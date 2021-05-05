@@ -46,18 +46,22 @@
                         </h:column>
                         <h:column>
                             <div class="acao">
-                            <f:facet name="header">
-                                <h:outputText value="Ações"/>
-                            </f:facet>
-                            <h:commandLink action="#{ownerBean.update(item)}" title="Editar">
-                                <img src="../resources/imagens/iconfinder_edit.png" width="20px"/>
-                            </h:commandLink>
-                            <h:commandLink type="reset" action="#{ownerBean.delete(item)}" title="Excluir" onclick="return window.confirm('Tem certeza que deseja excluir esse proprietário?')">
-                                <img src="../resources/imagens/iconfinder_delete.png" width="20px"/>                     
-                            </h:commandLink>
+                                <f:facet name="header">
+                                    <h:outputText value="Ações"/>
+                                </f:facet>
+                                <h:commandLink action="#{ownerBean.update(item)}" title="Editar">
+                                    <img src="../resources/imagens/iconfinder_edit.png" width="20px"/>
+                                </h:commandLink>
+                                <h:commandLink type="reset" action="#{ownerBean.delete(item)}" title="Excluir" onclick="return window.confirm('Tem certeza que deseja excluir esse proprietário?')">
+                                    <img src="../resources/imagens/iconfinder_delete.png" width="20px"/>                     
+                                </h:commandLink>
                             </div>
                         </h:column>
                     </h:dataTable>
+                    <div class="row">
+                        <h:messages styleClass="errorMessages" ><span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                            </h:messages>                  
+                    </div>
                     <div class="row">
                         <h:link class="btn btn-success listForm" outcome="/index.xhtml">
                             <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
@@ -68,6 +72,11 @@
                     </div>
                 </h:form>
             </f:view>
+            <f:view>
+
+
+
+            </f:view>  
         </div>
     </h:body>
 </html>

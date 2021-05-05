@@ -5,10 +5,11 @@
  */
 package controller;
 
-import com.sun.xml.bind.v2.TODO;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Occupation;
@@ -23,7 +24,7 @@ public class OccupationBean {
 
     private Occupation occupation = new Occupation();
     private List<Occupation> occupations;
-    
+
     /**
      * Creates a OccupationBean new instance
      */
@@ -38,16 +39,13 @@ public class OccupationBean {
     public void setOccupation(Occupation occupation) {
         this.occupation = occupation;
     }
-    
-    
-    
+
     //METHODS
-    
     public String newOccupation(String info) {
         this.occupation = new Occupation();
         return info + "occupationForm";
     }
-    
+
     public String save() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -76,7 +74,6 @@ public class OccupationBean {
         return "occupationForm";
     }
 
-
     public List<Occupation> getOccupations() {
         EntityManager em = JPAUtil.getEntityManager();
         if (this.occupations == null) {
@@ -87,24 +84,29 @@ public class OccupationBean {
         }
         return occupations;
     }
-    /** 
+
+    /**
      * Todo: Tratar delete com o relacionamento
      */
     public void delete(Occupation theOccupation) {
         EntityManager em = JPAUtil.getEntityManager();
-        if (theOccupation.getId() != null) {
-            em.getTransaction().begin();
-            theOccupation = em.merge(theOccupation);
-            em.remove(theOccupation);
-            em.getTransaction().commit();
-            em.close();
+        try {
+            if (theOccupation.getId() != null) {
+                em.getTransaction().begin();
+                theOccupation = em.merge(theOccupation);
+                em.remove(theOccupation);
+                em.getTransaction().commit();
+            }
+
+        } catch (Exception e) {
+            String str = "Não foi possivel apagar o cargo " + theOccupation.getName() + " porque ele possui relacionamentos com outra tabela no banco de dados. Apague primeiro os proprietários vinculados a este cargo.";
+            FacesContext.getCurrentInstance().addMessage("erroId:xxx", new FacesMessage(str));
         }
+
+        em.close();
 
         this.occupations = null;
 
     }
-    
-    
-    
-    
+
 }

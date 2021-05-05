@@ -7,8 +7,10 @@ package controller;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Occupation;
@@ -110,14 +112,19 @@ public class OwnerBean {
 
     public void delete(Owner theOwner) {
         EntityManager em = JPAUtil.getEntityManager();
-        if (theOwner.getId() != null) {
+        try {
+            if (theOwner.getId() != null) {
             em.getTransaction().begin();
             theOwner = em.merge(theOwner);
             em.remove(theOwner);
             em.getTransaction().commit();
-            em.close();
+        }   
+        } catch (Exception e) {
+            String str = "Não foi possivel apagar o proprietário " + theOwner.getName() + " porque ele possui relacionamentos. Apague primeiro a tarefa vinculada a ele.";
+            FacesContext.getCurrentInstance().addMessage("erroId:xxx", new FacesMessage(str));
         }
-
+        
+        em.close();        
         this.owners = null;
 
     }

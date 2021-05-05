@@ -20,7 +20,7 @@ thead {
 }
 
 tbody tr:nth-child(odd){
-   background-color: #E9E9E9;
+    background-color: #E9E9E9;
 }
 #ajuste_tabelas {
     width: 90%;
@@ -28,13 +28,13 @@ tbody tr:nth-child(odd){
 }
 
 #container {
-   width: 90%;
-   margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
 }
 
 #label_portal{
-   font-family: 'BlinkMacSystenFont', Roboto, Arial, serif;
-   font-size: 1.2em;
+    font-family: 'BlinkMacSystenFont', Roboto, Arial, serif;
+    font-size: 1.2em;
 }
 .cabecalho {
     position: relative;
@@ -85,16 +85,37 @@ tbody tr:nth-child(odd){
     margin: 5px;
 }
 .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 70%;
-      margin: auto;
-  }
-  
-  .acao{
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-  }
-  
+.carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+}
+
+.acao{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.errorMessages{
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
