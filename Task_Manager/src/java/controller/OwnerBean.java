@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.JPAUtil;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

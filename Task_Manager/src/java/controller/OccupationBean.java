@@ -5,14 +5,18 @@
  */
 package controller;
 
+import dao.JPAUtil;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Occupation;
+import service.OccupationService;
 
 /**
  *
@@ -24,6 +28,9 @@ public class OccupationBean {
 
     private Occupation occupation = new Occupation();
     private List<Occupation> occupations;
+    
+    @Inject
+    private OccupationService service;
 
     /**
      * Creates a OccupationBean new instance
@@ -47,23 +54,7 @@ public class OccupationBean {
     }
 
     public String save() {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            // Starts DB transaction
-            em.getTransaction().begin();
-            // Verify if exists
-            if (occupation.getId() == null) {
-                //Save occupation
-                em.persist(occupation);
-            } else {
-                //Update occupation.
-                occupation = em.merge(occupation);
-            }
-            //Publish transaction.
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
+        service.save(occupation);
 
         this.occupations = null;
         return "occupationList";
